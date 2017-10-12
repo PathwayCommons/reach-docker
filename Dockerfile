@@ -1,8 +1,5 @@
 FROM broadinstitute/scala-baseimage:latest
 
-# Run as unprivileged pcuser
-RUN groupadd -r pcuser_grp && useradd -r -m -g pcuser_grp pcuser
-
 RUN apt-get update && apt-get install -y git
 
 # Fetch the branch and checkout commit 
@@ -22,12 +19,15 @@ RUN sed -i.bak 's/localhost/0\.0\.0\.0/' /nlp/reach/export/src/main/resources/re
 # Compile a FAT JAR configured to run the file processor server
 RUN sbt -DmainClass=org.clulab.reach.export.server.ApiServer assembly
 
-RUN chown pcuser:pcuser_grp /nlp/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
-
 EXPOSE 8080
 COPY sbt.sh /
-WORKDIR /nlp/reach/target/scala-2.11
 
+# Run as unprivileged pcuser
+RUN groupadd -r pcuser_grp && useradd -r -m -d /home/pcuser/ -s /bin/bash -g pcuser_grp pcuser
+RUN chown pcuser:pcuser_grp /nlp/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
 USER pcuser
+ENV HOME /home/pcuser
+RUN mkdir -p /home/pcuser/Documents/reach
 
+WORKDIR /nlp/reach/target/scala-2.11
 CMD ["/sbt.sh"]
