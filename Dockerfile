@@ -1,7 +1,7 @@
 FROM broadinstitute/scala-baseimage:latest
 
 # Run as unprivileged pcuser
-RUN groupadd -r pcuser_grp && useradd -r -g pcuser_grp pcuser
+RUN groupadd -r pcuser_grp && useradd -r -m -g pcuser_grp pcuser
 
 RUN apt-get update && apt-get install -y git
 
