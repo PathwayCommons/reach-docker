@@ -23,10 +23,9 @@ EXPOSE 8080
 COPY sbt.sh /
 
 # Run as unprivileged pcuser
-RUN groupadd -r pcuser_grp && useradd -r -m -d /home/pcuser/ -s /bin/bash -g pcuser_grp pcuser
-RUN chown pcuser:pcuser_grp /nlp/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
+RUN adduser --system --home /home/pcuser --shell /bin/bash --group pcuser
+RUN chown pcuser:pcuser /nlp/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
 USER pcuser
-ENV HOME /home/pcuser
 RUN mkdir -p /home/pcuser/Documents/reach
 
 WORKDIR /nlp/reach/target/scala-2.11
