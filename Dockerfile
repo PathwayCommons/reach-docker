@@ -1,4 +1,4 @@
-FROM broadinstitute/scala-baseimage:latest
+FROM broadinstitute/scala-baseimage:scala-2.11.8
 
 RUN apt-get update && apt-get install -y git
 
