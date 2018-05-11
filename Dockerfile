@@ -50,10 +50,10 @@ RUN apt-get update && apt-get install -y git
 # Fetch the branch and checkout commit 
 RUN mkdir -p /nlp
 
-# Fetch the branch and checkout commit 
-RUN cd /nlp && git clone -b master https://github.com/clulab/reach.git
+# Fetch the (fork) branch and checkout commit 
+RUN cd /nlp && git clone -b master https://github.com/IgorRodchenkov/reach.git
 WORKDIR /nlp/reach
-RUN git checkout 72064c6abb442bfa84cc89e0f00fb50c3a9ffa6c 
+# RUN git checkout v1.4.1
 
 # Make changes to the configuration files.
 # Set default timeouts 
@@ -69,7 +69,7 @@ COPY sbt.sh /
 
 # Run as unprivileged pcuser
 RUN adduser --system --home /home/pcuser --shell /bin/bash --group pcuser
-RUN chown pcuser:pcuser /nlp/reach/target/scala-2.11/reach-1.3.5-SNAPSHOT-FAT.jar
+RUN chown pcuser:pcuser /nlp/reach/target/scala-2.11/reach-1.4.1-SNAPSHOT-FAT.jar
 USER pcuser
 RUN mkdir -p /home/pcuser/Documents/reach
 
