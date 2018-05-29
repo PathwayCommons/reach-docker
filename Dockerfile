@@ -51,9 +51,9 @@ RUN apt-get update && apt-get install -y git
 RUN mkdir -p /nlp
 
 # Fetch the (fork) branch and checkout commit 
-RUN cd /nlp && git clone -b master https://github.com/IgorRodchenkov/reach.git
+RUN cd /nlp && git clone -b master https://github.com/clulab/reach.git
 WORKDIR /nlp/reach
-# RUN git checkout v1.4.1
+# RUN git checkout v1.4.0
 
 # Make changes to the configuration files.
 # Set default timeouts 
