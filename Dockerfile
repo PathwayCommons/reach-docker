@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y wget tree htop zip unzip && \
     echo "exit" | sbt
 
 # --- INSTALL REACH ---
-# https://github.com/clulab/reach/tree/72064c6abb442bfa84cc89e0f00fb50c3a9ffa6c
+# https://github.com/clulab/reach/tree/5b9166fdf74e7c4932240b16fd8a43aef6b8bdc6
 
 RUN apt-get update && apt-get install -y git
 
@@ -53,7 +53,7 @@ RUN mkdir -p /nlp
 # Fetch the (fork) branch and checkout commit 
 RUN cd /nlp && git clone -b master https://github.com/clulab/reach.git
 WORKDIR /nlp/reach
-# RUN git checkout v1.4.0
+RUN git checkout 5b9166fdf74e7c4932240b16fd8a43aef6b8bdc6
 
 # Make changes to the configuration files.
 # Set default timeouts 
